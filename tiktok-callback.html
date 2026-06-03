@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Faceless TikTok Callback</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="panel">
+      <p class="eyebrow">TikTok OAuth callback</p>
+      <h1>Authorization Returned</h1>
+      <p>This page only displays the authorization result in your browser. It does not send the code anywhere.</p>
+      <label for="callback-url">Full callback URL</label>
+      <textarea id="callback-url" readonly></textarea>
+      <label for="auth-code">Code</label>
+      <input id="auth-code" type="text" readonly>
+      <p id="state-line" class="muted"></p>
+      <p id="error-line" class="error"></p>
+    </section>
+  </main>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code') || '';
+    const state = params.get('state') || '';
+    const error = params.get('error') || '';
+    const description = params.get('error_description') || '';
+
+    document.getElementById('callback-url').value = window.location.href;
+    document.getElementById('auth-code').value = code;
+    document.getElementById('state-line').textContent = state ? `State: ${state}` : '';
+    document.getElementById('error-line').textContent = error ? `Error: ${error} ${description}` : '';
+  </script>
+</body>
+</html>
