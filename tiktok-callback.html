@@ -3,14 +3,25 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Faceless TikTok Callback</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta name="robots" content="noindex,nofollow">
+  <title>BriefPicks TikTok Callback | BriefPicks</title>
+  <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
+  <header class="site-header">
+    <a class="brand" href="/">BriefPicks</a>
+    <nav aria-label="Primary navigation">
+      <a href="/uk/pet-tech/">Pet Tech</a>
+      <a href="/uk/gadget-checklists/">Gadget Checklists</a>
+      <a href="/uk/travel/">Travel</a>
+      <a href="/disclosure">Disclosure</a>
+    </nav>
+  </header>
+
   <main class="page">
     <section class="panel">
-      <p class="eyebrow">TikTok OAuth callback</p>
-      <h1>Authorization Returned</h1>
+      <p class="eyebrow">BriefPicks utility page</p>
+      <h1>TikTok Authorization Returned</h1>
       <p>This page only displays the authorization result in your browser. It does not send the code anywhere.</p>
       <label for="callback-url">Full callback URL</label>
       <textarea id="callback-url" readonly></textarea>
@@ -20,6 +31,14 @@
       <p id="error-line" class="error"></p>
     </section>
   </main>
+
+  <footer class="site-footer">
+    <a href="/disclosure">Affiliate Disclosure</a>
+    <a href="/privacy">Privacy Policy</a>
+    <a href="/terms">Terms</a>
+    <a href="/ai-use">AI Use</a>
+  </footer>
+
   <script>
     const params = new URLSearchParams(window.location.search);
     const code = params.get('code') || '';
