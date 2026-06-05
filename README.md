@@ -1,9 +1,15 @@
-# Faceless Pages
+# BriefPicks Pages
 
-Static public pages for TikTok Developer Portal verification:
+Static Cloudflare Pages site for BriefPicks.
 
-- `privacy.html`
-- `terms.html`
-- `tiktok-callback.html`
+Initial sections:
 
-These pages are intentionally simple and do not collect form submissions or run analytics.
+- `/uk/pet-tech/`
+- `/uk/gadget-checklists/`
+- `/uk/travel/`
+- `/disclosure.html`
+- `/privacy.html`
+- `/terms.html`
+- `/ai-use.html`
+
+Keep the site static until the first public deployment is working. Add the dynamic `/go/{video_id}` redirect function after Cloudflare Pages and the custom domains are confirmed live.
