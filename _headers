@@ -1,0 +1,9 @@
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+/tiktok-callback*
+  X-Robots-Tag: noindex, nofollow
+  Referrer-Policy: no-referrer
