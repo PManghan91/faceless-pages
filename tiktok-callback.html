@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
+  <meta name="referrer" content="no-referrer">
   <title>BriefPicks TikTok Callback | BriefPicks</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
@@ -21,13 +22,10 @@
   <main class="page">
     <section class="panel">
       <p class="eyebrow">BriefPicks utility page</p>
-      <h1>TikTok Authorization Returned</h1>
-      <p>This page only displays the authorization result in your browser. It does not send the code anywhere.</p>
-      <label for="callback-url">Full callback URL</label>
-      <textarea id="callback-url" readonly></textarea>
-      <label for="auth-code">Code</label>
-      <input id="auth-code" type="text" readonly>
-      <p id="state-line" class="muted"></p>
+      <h1>TikTok Callback Parked</h1>
+      <p>Direct TikTok OAuth is currently parked. BriefPicks publishing does not use this page right now.</p>
+      <p class="muted">If direct TikTok OAuth is resumed, register this exact callback URL first: <code>https://briefpicks.com/tiktok-callback.html</code></p>
+      <p id="response-line" class="muted"></p>
       <p id="error-line" class="error"></p>
     </section>
   </main>
@@ -41,14 +39,14 @@
 
   <script>
     const params = new URLSearchParams(window.location.search);
-    const code = params.get('code') || '';
-    const state = params.get('state') || '';
     const error = params.get('error') || '';
     const description = params.get('error_description') || '';
+    const hadCallbackData = window.location.search || window.location.hash;
 
-    document.getElementById('callback-url').value = window.location.href;
-    document.getElementById('auth-code').value = code;
-    document.getElementById('state-line').textContent = state ? `State: ${state}` : '';
+    if (hadCallbackData) {
+      document.getElementById('response-line').textContent = 'A TikTok authorization response was received but discarded because direct OAuth is parked.';
+      window.history.replaceState(null, document.title, window.location.pathname);
+    }
     document.getElementById('error-line').textContent = error ? `Error: ${error} ${description}` : '';
   </script>
 </body>
