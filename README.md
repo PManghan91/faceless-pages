@@ -96,3 +96,52 @@ Expected results:
 - Fake or missing paths return `404`.
 
 Keep the site static until the first public deployment is working. Add the dynamic `/go/{video_id}` redirect function after Cloudflare Pages and the custom domains are confirmed live.
+
+## Mail DNS Setup
+
+Issue: [#10 Zoho Mail setup and sender authentication](https://github.com/PManghan91/faceless-pages/issues/10)
+
+Goal: make `contact@briefpicks.com` a real mailbox without changing the Cloudflare Pages web records.
+
+Outcome on 2026-06-06:
+
+- Zoho Mail Free was not available in the live UK signup flow; Zoho Mail Lite was selected and paid for.
+- Domain ownership was verified in Zoho.
+- `contact@briefpicks.com` was created as the Zoho super admin mailbox.
+- Inbound and outbound test messages passed, reported by the mailbox operator after DNS setup.
+- Cloudflare Pages web behavior remained intact.
+
+Final public DNS records, checked on 2026-06-06 with resolver `1.1.1.1`:
+
+| Record | Current value |
+| --- | --- |
+| MX `briefpicks.com` | `mx.zoho.eu` priority `10`; `mx2.zoho.eu` priority `20`; `mx3.zoho.eu` priority `50` |
+| TXT `briefpicks.com` SPF | `v=spf1 include:zohomail.eu ~all` |
+| TXT `briefpicks.com` Zoho verification | `zoho-verification=zb73049202.zmverify.zoho.eu` |
+| TXT `zmail._domainkey.briefpicks.com` | Zoho-generated `v=DKIM1; k=rsa; p=...` DKIM key |
+| TXT `_dmarc.briefpicks.com` | `v=DMARC1; p=none; rua=mailto:contact@briefpicks.com` |
+
+Final web checks from the same pass:
+
+| URL | Result |
+| --- | --- |
+| `https://www.briefpicks.com/` with redirects followed | `200` at `https://briefpicks.com/` |
+
+Pre-change rollback snapshot:
+
+| Record | Previous value |
+| --- | --- |
+| MX `briefpicks.com` | `eforward1.registrar-servers.com` priority `10`; `eforward2.registrar-servers.com` priority `10`; `eforward3.registrar-servers.com` priority `10`; `eforward4.registrar-servers.com` priority `15`; `eforward5.registrar-servers.com` priority `20` |
+| TXT `briefpicks.com` SPF | `v=spf1 include:spf.efwd.registrar-servers.com ~all` |
+| TXT `_dmarc.briefpicks.com` | not present |
+
+Official references checked on 2026-06-06:
+
+- Zoho Mail pricing: `https://www.zoho.com/mail/zohomail-pricing.html`
+- Zoho domain verification: `https://www.zoho.com/mail/help/adminconsole/domain-verification.html`
+- Zoho email delivery and MX setup: `https://www.zoho.com/mail/help/adminconsole/configure-email-delivery.html`
+- Zoho SPF: `https://www.zoho.com/mail/help/adminconsole/spf-configuration.html`
+- Zoho DKIM: `https://www.zoho.com/mail/help/adminconsole/dkim-configuration.html`
+- Zoho DMARC: `https://www.zoho.com/mail/help/adminconsole/dmarc-policy.html`
+- Cloudflare DNS record types: `https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/`
+- Cloudflare Pages custom domains: `https://developers.cloudflare.com/pages/configuration/custom-domains/`
