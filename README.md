@@ -96,3 +96,58 @@ Expected results:
 - Fake or missing paths return `404`.
 
 Keep the site static until the first public deployment is working. Add the dynamic `/go/{video_id}` redirect function after Cloudflare Pages and the custom domains are confirmed live.
+
+## Mail DNS Setup
+
+Issue: [#10 Zoho Mail setup and sender authentication](https://github.com/PManghan91/faceless-pages/issues/10)
+
+Goal: make `contact@briefpicks.com` a real mailbox without changing the Cloudflare Pages web records.
+
+Current public DNS snapshot, checked on 2026-06-06 with resolver `1.1.1.1`:
+
+| Record | Current value |
+| --- | --- |
+| NS | `jerry.ns.cloudflare.com`, `sydney.ns.cloudflare.com` |
+| A `briefpicks.com` | `104.21.51.180`, `172.67.183.147` |
+| A `www.briefpicks.com` | `104.21.51.180`, `172.67.183.147` |
+| MX `briefpicks.com` | `eforward1.registrar-servers.com` priority `10`; `eforward2.registrar-servers.com` priority `10`; `eforward3.registrar-servers.com` priority `10`; `eforward4.registrar-servers.com` priority `15`; `eforward5.registrar-servers.com` priority `20` |
+| TXT `briefpicks.com` | `v=spf1 include:spf.efwd.registrar-servers.com ~all` |
+| TXT `_dmarc.briefpicks.com` | not present |
+
+Current web checks from the same pre-change pass:
+
+| URL | Result |
+| --- | --- |
+| `https://briefpicks.com/` | `200` |
+| `https://www.briefpicks.com/` | `301` to `https://briefpicks.com/` |
+| `https://www.briefpicks.com/` with redirects followed | `200` at `https://briefpicks.com/` |
+| `https://faceless-pages.pages.dev/` | `200` |
+
+Implementation checkpoints:
+
+1. During signup, confirm Zoho Mail Free is available for the account before changing DNS. If only paid plans are offered, stop and reassess.
+2. Confirm whether the current registrar forwarding MX records are actively used. Replacing them with Zoho MX records will stop registrar forwarding.
+3. Verify `briefpicks.com` in Zoho Mail Admin Console using Cloudflare one-click verification if available, otherwise use manual TXT or CNAME verification.
+4. Use the MX values shown in Zoho Mail Admin Console for the actual account and data center. Do not copy generic examples blindly.
+5. Replace the current root SPF record with one single Zoho SPF TXT record. Do not leave two `v=spf1` records on the root domain.
+6. Generate DKIM in Zoho Mail Admin Console, add the generated selector TXT record at `<selector>._domainkey.briefpicks.com`, verify it, then enable DKIM.
+7. Add a conservative DMARC TXT record at `_dmarc.briefpicks.com`, starting with monitoring policy `p=none` until SPF/DKIM alignment and test traffic are confirmed.
+8. Send and receive test messages for `contact@briefpicks.com`; inspect headers for SPF, DKIM, and DMARC pass/alignment.
+9. Record the final public DNS values here or in the issue without secrets, passwords, recovery codes, or private mailbox contents.
+
+Rollback notes:
+
+- Restore the pre-change MX records above if Zoho delivery fails and registrar forwarding needs to be restored.
+- Restore the pre-change SPF record only if mail is routed back through registrar forwarding.
+- Do not remove or change Cloudflare Pages web records while performing mail setup.
+
+Official references checked on 2026-06-06:
+
+- Zoho Mail pricing: `https://www.zoho.com/mail/zohomail-pricing.html`
+- Zoho domain verification: `https://www.zoho.com/mail/help/adminconsole/domain-verification.html`
+- Zoho email delivery and MX setup: `https://www.zoho.com/mail/help/adminconsole/configure-email-delivery.html`
+- Zoho SPF: `https://www.zoho.com/mail/help/adminconsole/spf-configuration.html`
+- Zoho DKIM: `https://www.zoho.com/mail/help/adminconsole/dkim-configuration.html`
+- Zoho DMARC: `https://www.zoho.com/mail/help/adminconsole/dmarc-policy.html`
+- Cloudflare DNS record types: `https://developers.cloudflare.com/dns/manage-dns-records/reference/dns-record-types/`
+- Cloudflare Pages custom domains: `https://developers.cloudflare.com/pages/configuration/custom-domains/`
