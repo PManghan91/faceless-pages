@@ -2,11 +2,45 @@
 
 Static Cloudflare Pages site for BriefPicks.
 
+## Build Model
+
+The editable site source lives in `src/` and uses Eleventy with Nunjucks templates. Shared page chrome is kept in `src/_includes/`:
+
+- `layouts/base.njk`
+- `partials/head.njk`
+- `partials/header.njk`
+- `partials/footer.njk`
+- `partials/analytics-pirsch.njk`
+
+Run this locally:
+
+```powershell
+npm install
+npm run build
+npm run dev
+```
+
+`npm run build` generates the public site into `_site/`. Deploy `_site/`, not the repository root.
+
+Internal planning and decision records should stay in the private `PManghan91/Faceless` repository, not in this public Pages deployment repository. Do not copy internal `docs/` material into `_site/`.
+
 ## Repository Boundary
 
-This repository, `PManghan91/faceless-pages`, is the Cloudflare Pages deployment repository. Public site PRs should be opened here against `main`, with site files at the repository root.
+This repository, `PManghan91/faceless-pages`, is the public Pages deployment repository. Public site PRs should be opened here against `main`, with editable site source under `src/` and generated output under `_site/`.
 
-The broader `PManghan91/Faceless` repository may keep project notes, workflow files, and local planning material, but branches from that repository are not deploy-ready site branches because its static site copy lives under `github-pages/faceless-pages/` and has a separate Git history.
+The broader `PManghan91/Faceless` repository is private and should keep project notes, workflow files, and local planning material. Branches from that repository are not deploy-ready site branches because its static site copy lives under `github-pages/faceless-pages/` and has a separate Git history.
+
+## Deployment Configuration
+
+Cloudflare Pages should build and deploy this repo with:
+
+| Setting | Value |
+| --- | --- |
+| Build command | `npm run build` |
+| Build output directory | `_site` |
+| Root directory | repository root |
+
+GitHub Pages, if kept enabled as a mirror, should use GitHub Actions rather than legacy branch-root publishing. The included workflow builds Eleventy and uploads only `_site/`. Legacy branch-root publishing must not be used because it can expose repo-only files.
 
 ## Current Routes
 
@@ -123,7 +157,7 @@ The Pirsch script is intentionally not installed on `/privacy` or `/tiktok-callb
 
 Keep UTM query parameters enabled. Do not add `data-disable-query` unless the analytics plan is revised. Do not add `data-enable-sessions` unless session-extension tracking is separately approved.
 
-Current site-wide answer: this repo is plain static HTML with no shared `<head>` template, so the browser script must be present in each HTML page that should be tracked. For a true site-wide include later, introduce a shared build/template step or a Cloudflare Pages Function/Worker HTML rewrite. Do not use edge injection until the operational tradeoff is accepted, because it moves analytics behavior out of the visible source HTML and must still exclude `/privacy` and utility/callback routes.
+The site uses shared Eleventy/Nunjucks templates. The Pirsch script is included through `src/_includes/partials/analytics-pirsch.njk` only when a page sets `analytics: true` in front matter. Keep `/privacy`, `/tiktok-callback`, and `404.html` set to `analytics: false`.
 
 Future `/go` links can be tracked, but not as a blank cheque for every analytics idea. Treat `/go/{slug}` as a first-party redirect and track only non-personal metadata such as `slug`, `channel`, `destination_host`, `placement`, and campaign fields. Do not send names, email addresses, account IDs, phone numbers, private IDs, or other personally identifying values in URLs, UTM values, or Pirsch event metadata.
 
@@ -143,7 +177,7 @@ Analytics that requires a revised plan before deployment:
 - Email capture tracking or CRM analytics that links behavior to a named person.
 - Revenue or conversion tracking shared with advertising partners.
 
-See `docs/analytics-and-privacy-plan.md` for the full decision record.
+The full analytics and privacy decision record belongs in the private `PManghan91/Faceless` project notes, not in this public deployment repo.
 
 ## Mail DNS Setup
 

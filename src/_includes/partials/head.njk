@@ -1,0 +1,45 @@
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+{% if robots %}
+  <meta name="robots" content="{{ robots }}">
+{% endif %}
+{% if referrer %}
+  <meta name="referrer" content="{{ referrer }}">
+{% endif %}
+  <title>{{ title }}</title>
+{% if description %}
+  <meta name="description" content="{{ description }}">
+{% endif %}
+{% if canonical %}
+  <link rel="canonical" href="{{ canonical }}">
+{% endif %}
+{% if socialMeta %}
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:locale" content="{{ site.locale }}">
+  <meta property="og:type" content="{{ ogType | default('website') }}">
+  <meta property="og:title" content="{{ title }}">
+{% if description %}
+  <meta property="og:description" content="{{ description }}">
+{% endif %}
+  <meta property="og:url" content="{{ ogUrl | default(canonical) }}">
+  <meta property="og:image" content="{{ site.socialImage }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ site.socialImageAlt }}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ title }}">
+{% if description %}
+  <meta name="twitter:description" content="{{ description }}">
+{% endif %}
+  <meta name="twitter:image" content="{{ site.socialImage }}">
+  <meta name="twitter:image:alt" content="{{ site.socialImageAlt }}">
+{% endif %}
+{% if analytics %}
+{% include "partials/analytics-pirsch.njk" %}
+{% endif %}
+{% if jsonLd %}
+  <script type="application/ld+json">
+{{ jsonLd | safe }}
+  </script>
+{% endif %}
+  <link rel="stylesheet" href="{{ site.stylesheet }}">
