@@ -36,23 +36,34 @@
 
   <main class="page legal">
     <article class="panel">
-      <p class="eyebrow">Last updated: 2026-06-05</p>
+      <p class="eyebrow">Last updated: 2026-06-06</p>
       <h1>Privacy Policy</h1>
 
       <h2>Overview</h2>
-      <p>BriefPicks publishes short, source-backed buying briefs, checklists, and destination guides. This site currently provides public channel pages and trust/legal pages. Future video source pages and tracked outbound links may be added.</p>
+      <p>BriefPicks publishes short, source-backed buying briefs, checklists, and destination guides. This site provides public channel pages, trust/legal pages, and may later add video source pages and tracked outbound links.</p>
 
       <h2>Information We May Process</h2>
-      <p>We may process technical request data, basic security logs, page visit information, referral or campaign parameters, outbound click events when tracking is added, and information you choose to send by email or through future forms.</p>
+      <p>We may process technical request data, basic security logs, page visit information, referral or campaign parameters, outbound click events, file download events, and information you choose to send by email or through future forms.</p>
+      <p>For analytics, BriefPicks uses Pirsch Analytics on selected public pages. Pirsch may process page paths, referrers, UTM parameters, time of visit, language, browser, operating system, device type, screen size, country or city-level location, and outbound link or file download events.</p>
 
       <h2>How We Use Information</h2>
-      <p>Information is used to operate the site, detect broken links or abuse, understand which pages and videos are useful, route users to relevant offers, respond to messages, and improve BriefPicks content.</p>
+      <p>Information is used to operate the site, detect broken links or abuse, understand which pages and videos are useful in aggregate, route users to relevant offers, respond to messages, and improve BriefPicks content. BriefPicks does not use Pirsch analytics for advertising profiles, retargeting, or cross-site tracking.</p>
 
       <h2>Affiliate And Third-Party Links</h2>
       <p>Outbound links may take you to retailers, booking platforms, affiliate networks, or social platforms. Those third parties process information under their own policies. Links marked <strong>Ad</strong> are affiliate or commercial links.</p>
 
       <h2>Cookies, Analytics, And Tracking</h2>
-      <p>BriefPicks does not intentionally set advertising cookies on these static pages today. If analytics, affiliate tracking pixels, email tools, or similar non-essential tracking technologies are added, BriefPicks will update this policy and provide any required consent or opt-out controls before using them.</p>
+      <p>BriefPicks does not intentionally set advertising cookies on these static pages. Pirsch Analytics is cookie-free and says it does not store visitor IP addresses. It uses request data to create a short-lived, site-specific visitor hash for aggregate analytics.</p>
+      <p>UK privacy rules can cover scripts, tags, device access, and navigational tracking, not only cookies. BriefPicks uses analytics only for aggregate statistical site improvement and provides this browser opt-out:</p>
+      <div class="button-row" aria-label="Analytics controls">
+        <button class="button" type="button" id="disable-analytics">Disable analytics</button>
+        <button class="button secondary" type="button" id="enable-analytics">Enable analytics</button>
+      </div>
+      <p class="status-message" id="analytics-status"></p>
+      <p>The opt-out is stored in this browser using Pirsch's <code>disable_pirsch</code> localStorage setting. It does not affect other browsers or devices. If advertising pixels, affiliate tracking pixels, email tools, or similar non-essential tracking technologies are added later, BriefPicks will update this policy and provide any required consent controls before using them.</p>
+
+      <h2>Retention And Access</h2>
+      <p>Pirsch dashboard data is retained while needed for aggregate trend analysis, unless deleted or exported earlier. BriefPicks will review analytics retention at least annually. Access should be limited to the BriefPicks owner and named admins who need analytics for site operations.</p>
 
       <h2>Contact</h2>
       <p><a class="button" href="mailto:contact@briefpicks.com">Email BriefPicks</a></p>
@@ -65,5 +76,27 @@
     <a href="/terms">Terms</a>
     <a href="/ai-use">AI Use</a>
   </footer>
+  <script>
+    const disableButton = document.getElementById('disable-analytics');
+    const enableButton = document.getElementById('enable-analytics');
+    const statusLine = document.getElementById('analytics-status');
+
+    function updateAnalyticsStatus() {
+      const disabled = localStorage.getItem('disable_pirsch') !== null;
+      statusLine.textContent = disabled ? 'Analytics is disabled in this browser.' : 'Analytics is enabled in this browser.';
+    }
+
+    disableButton.addEventListener('click', () => {
+      localStorage.setItem('disable_pirsch', '1');
+      updateAnalyticsStatus();
+    });
+
+    enableButton.addEventListener('click', () => {
+      localStorage.removeItem('disable_pirsch');
+      updateAnalyticsStatus();
+    });
+
+    updateAnalyticsStatus();
+  </script>
 </body>
 </html>

@@ -263,6 +263,25 @@ nav a:focus-visible {
   color: #075e76;
 }
 
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 4px 0 12px;
+}
+
+.button-row .button {
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+}
+
+.status-message {
+  min-height: 1.6em;
+  font-weight: 700;
+  color: #0a5d68;
+}
+
 .category-grid {
   align-items: stretch;
 }

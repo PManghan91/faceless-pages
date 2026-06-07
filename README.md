@@ -2,6 +2,12 @@
 
 Static Cloudflare Pages site for BriefPicks.
 
+## Repository Boundary
+
+This repository, `PManghan91/faceless-pages`, is the Cloudflare Pages deployment repository. Public site PRs should be opened here against `main`, with site files at the repository root.
+
+The broader `PManghan91/Faceless` repository may keep project notes, workflow files, and local planning material, but branches from that repository are not deploy-ready site branches because its static site copy lives under `github-pages/faceless-pages/` and has a separate Git history.
+
 ## Current Routes
 
 Canonical public routes:
@@ -96,6 +102,48 @@ Expected results:
 - Fake or missing paths return `404`.
 
 Keep the site static until the first public deployment is working. Add the dynamic `/go/{video_id}` redirect function after Cloudflare Pages and the custom domains are confirmed live.
+
+## Analytics And Privacy
+
+Issue: [#11 Analytics and privacy plan before tracking](https://github.com/PManghan91/faceless-pages/issues/11)
+
+Launch analytics provider: Pirsch Analytics.
+
+The Pirsch script is installed on normal public and trust pages:
+
+- `/`
+- `/uk/pet-tech/`
+- `/uk/gadget-checklists/`
+- `/uk/travel/`
+- `/disclosure`
+- `/terms`
+- `/ai-use`
+
+The Pirsch script is intentionally not installed on `/privacy` or `/tiktok-callback`. `/privacy` contains the analytics notice and browser opt-out control; `/tiktok-callback` is a parked utility page.
+
+Keep UTM query parameters enabled. Do not add `data-disable-query` unless the analytics plan is revised. Do not add `data-enable-sessions` unless session-extension tracking is separately approved.
+
+Current site-wide answer: this repo is plain static HTML with no shared `<head>` template, so the browser script must be present in each HTML page that should be tracked. For a true site-wide include later, introduce a shared build/template step or a Cloudflare Pages Function/Worker HTML rewrite. Do not use edge injection until the operational tradeoff is accepted, because it moves analytics behavior out of the visible source HTML and must still exclude `/privacy` and utility/callback routes.
+
+Future `/go` links can be tracked, but not as a blank cheque for every analytics idea. Treat `/go/{slug}` as a first-party redirect and track only non-personal metadata such as `slug`, `channel`, `destination_host`, `placement`, and campaign fields. Do not send names, email addresses, account IDs, phone numbers, private IDs, or other personally identifying values in URLs, UTM values, or Pirsch event metadata.
+
+Analytics that stays within the current posture:
+
+- Aggregate page views.
+- Referrers and non-personal UTM parameters.
+- Automatic outbound link and file download events.
+- Custom events for non-personal site actions such as future `/go` clicks.
+- Conversion goals based on aggregate paths or non-personal event metadata.
+
+Analytics that requires a revised plan before deployment:
+
+- Ad pixels, social pixels, affiliate-network browser pixels, or remarketing tags.
+- User-level attribution, profiling, cross-site tracking, or audience building.
+- Session replay, heatmaps tied to visitor sessions, or detailed visitor logs.
+- Email capture tracking or CRM analytics that links behavior to a named person.
+- Revenue or conversion tracking shared with advertising partners.
+
+See `docs/analytics-and-privacy-plan.md` for the full decision record.
 
 ## Mail DNS Setup
 
