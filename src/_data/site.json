@@ -1,0 +1,10 @@
+{
+  "name": "BriefPicks",
+  "lang": "en-GB",
+  "locale": "en_GB",
+  "baseUrl": "https://briefpicks.com",
+  "socialImage": "https://briefpicks.com/assets/briefpicks-social.png",
+  "socialImageAlt": "BriefPicks brand card for source-backed buying briefs and travel checks.",
+  "stylesheet": "/styles.css?v=20260606-subpage-refinement",
+  "pirschCode": "tl09hkvytwuv4JJlFIDIOfac2o4HroSD"
+}
