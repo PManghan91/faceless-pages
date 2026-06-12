@@ -1,0 +1,76 @@
+---
+layout: layouts/base.njk
+pagination:
+  data: videoPages
+  size: 1
+  alias: video
+permalink: "/v/{{ video.video_id }}/index.html"
+robots: noindex,nofollow
+analytics: false
+socialMeta: false
+eleventyComputed:
+  title: "{{ video.title }} | BriefPicks"
+  description: "{{ video.description }}"
+  canonical: "https://briefpicks.com/v/{{ video.video_id }}/"
+---
+  <main class="page video-page">
+    <article class="panel video-brief">
+      <p class="eyebrow">{{ video.market_label }} | {{ video.channel_label }} | {{ video.platform_label }}</p>
+      <h1>{{ video.title }}</h1>
+      <p class="lede">A source-backed BriefPicks video brief for {{ video.product_name }}.</p>
+      <p class="notice draft-notice">Draft page: this source page is for review and should stay noindex until the brief is published.</p>
+
+      <dl class="video-meta-list" aria-label="Video brief details">
+        <div>
+          <dt>Status</dt>
+          <dd><span class="status-badge">{{ video.status_label }}</span></dd>
+        </div>
+        <div>
+          <dt>Product</dt>
+          <dd>{{ video.product_name }}</dd>
+        </div>
+      </dl>
+
+      <section class="video-section" aria-labelledby="claim-heading-{{ video.video_id }}">
+        <h2 id="claim-heading-{{ video.video_id }}">Source-backed claim</h2>
+        <div class="claim-box">
+          <p>{{ video.claim_text }}</p>
+        </div>
+        <ul class="source-list">
+          <li>Source: <a href="{{ video.claim_source_url }}" rel="nofollow noopener">{{ video.claim_source_label }}</a></li>
+          <li>Access date: <time datetime="{{ video.claim_accessed_at_iso }}">{{ video.claim_accessed_at }}</time></li>
+          <li>Source type: {{ video.claim_source_type_label }}</li>
+        </ul>
+      </section>
+
+      <section class="video-section" aria-labelledby="transcript-heading-{{ video.video_id }}">
+        <h2 id="transcript-heading-{{ video.video_id }}">Transcript</h2>
+        <div class="transcript">
+{% for paragraph in video.transcript %}
+          <p>{{ paragraph }}</p>
+{% endfor %}
+        </div>
+      </section>
+
+      <section class="video-section" aria-labelledby="disclosure-heading-{{ video.video_id }}">
+        <h2 id="disclosure-heading-{{ video.video_id }}">Disclosure</h2>
+        <p>{{ video.disclosure_text }}</p>
+        <p class="notice">This page is based on public sources and product information. Hands-on testing is only stated when the brief records it.</p>
+      </section>
+
+      <section class="video-section" aria-labelledby="cta-heading-{{ video.video_id }}">
+        <h2 id="cta-heading-{{ video.video_id }}">Next step</h2>
+        <p>{{ video.cta_context }}</p>
+        <a class="button" href="{{ video.go_url }}">{{ video.cta_text }}</a>
+      </section>
+
+      <section class="video-section" aria-labelledby="tags-heading-{{ video.video_id }}">
+        <h2 id="tags-heading-{{ video.video_id }}">Market tags</h2>
+        <ul class="tag-list">
+{% for tag in video.tags %}
+          <li>{{ tag }}</li>
+{% endfor %}
+        </ul>
+      </section>
+    </article>
+  </main>

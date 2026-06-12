@@ -11,6 +11,15 @@ import {
 } from "../src/go-handler.mjs";
 
 const sampleVideoId = "pet-tech-tractive-dog-gps-escape-alerts";
+const firstWeekVideoIds = [
+  "pet-tech-tractive-dog-gps-escape-alerts",
+  "pet-tech-catit-pixi-smart-feeder-app-checks",
+  "pet-tech-petlibro-feeder-schedule-checks",
+  "pet-tech-petcube-treat-camera-fit",
+  "pet-tech-litter-robot-4-sensor-checks",
+  "pet-tech-catit-pixi-smart-fountain-app-checks",
+  "pet-tech-closer-pets-mibowl-microchip-check"
+];
 
 function request(path, method = "GET") {
   return new Request(`https://briefpicks.com${path}`, { method });
@@ -168,7 +177,7 @@ test("go link map matches reviewed JSON and keeps v0 audience-first", async () =
   const json = JSON.parse(await readFile(new URL("../functions/_data/go-links.json", import.meta.url), "utf8"));
 
   assert.deepEqual(goLinks, json);
-  assert.equal(Object.keys(goLinks).length, 10);
+  assert.equal(Object.keys(goLinks).length, 12);
 
   for (const [videoId, entry] of Object.entries(goLinks)) {
     assert.match(videoId, VIDEO_ID_PATTERN);
@@ -178,6 +187,10 @@ test("go link map matches reviewed JSON and keeps v0 audience-first", async () =
     assert.equal(entry.commercial_relationship, "none");
     assert.equal(entry.disclosure_required, false);
     assert.equal(entry.default_utm.content, videoId);
+  }
+
+  for (const videoId of firstWeekVideoIds) {
+    assert.ok(goLinks[videoId], `${videoId} missing from go map`);
   }
 });
 
@@ -208,4 +221,28 @@ test("server-side go_click analytics remains disabled for issue 18", async () =>
   const route = await readFile(new URL("../functions/go/[video_id].js", import.meta.url), "utf8");
 
   assert.doesNotMatch(`${handler}\n${route}`, /go_click|PIRSCH|waitUntil/);
+});
+
+test("draft video pages are generated from safe public data and omitted from sitemap", async () => {
+  const pages = JSON.parse(await readFile(new URL("../src/_data/videoPages.json", import.meta.url), "utf8"));
+  const template = await readFile(new URL("../src/v-pages.njk", import.meta.url), "utf8");
+  const sitemap = await readFile(new URL("../sitemap.xml", import.meta.url), "utf8");
+
+  assert.deepEqual(
+    pages.map((page) => page.video_id),
+    firstWeekVideoIds
+  );
+  assert.match(template, /robots:\s*noindex,nofollow/);
+  assert.match(template, /permalink:\s*"\/v\/{{ video\.video_id }}\/index\.html"/);
+  assert.doesNotMatch(sitemap, /\/v\//);
+
+  for (const page of pages) {
+    assert.match(page.video_id, VIDEO_ID_PATTERN);
+    assert.equal(page.go_url.startsWith(`/go/${page.video_id}/?`), true);
+    assert.equal(new URL(`https://briefpicks.com${page.go_url}`).searchParams.get("utm_content"), page.video_id);
+    assert.equal(page.disclosure_text, "No commercial relationship is recorded for this brief.");
+  }
+
+  const publicPayload = JSON.stringify(pages);
+  assert.doesNotMatch(publicPayload, /ASIN|Pre Affiliate|Audience growth|buy now|Amazon link|star rating/i);
 });
