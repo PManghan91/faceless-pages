@@ -137,6 +137,16 @@ Expected results:
 
 Keep the site static until the first public deployment is working. Add the dynamic `/go/{video_id}` redirect function after Cloudflare Pages and the custom domains are confirmed live.
 
+## `/go/{video_id}` Redirects
+
+Issue: [#18 Implement /go/{video_id} Function and _routes.json](https://github.com/PManghan91/faceless-pages/issues/18)
+
+`/go/{video_id}` is implemented as a Cloudflare Pages Function at `functions/go/[video_id].js`. It only redirects to destinations listed in `functions/_data/go-links.json`; visitor query parameters cannot set or override the destination.
+
+The reviewed JSON map is converted into `functions/_data/go-links.generated.mjs` during `npm run build` and `npm test`. The generated file is ignored by git so the reviewed JSON remains the source of truth.
+
+Current v0 entries are audience-building links back to the BriefPicks Pet Tech page. They are not affiliate, retailer, or sponsored redirects. Server-side `go_click` analytics are intentionally disabled until a server-readable opt-out exists.
+
 ## Analytics And Privacy
 
 Issue: [#11 Analytics and privacy plan before tracking](https://github.com/PManghan91/faceless-pages/issues/11)
