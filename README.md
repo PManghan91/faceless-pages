@@ -52,6 +52,7 @@ Canonical public routes:
 - `/uk/pet-tech/`
 - `/uk/gadget-checklists/`
 - `/uk/travel/`
+- `/v/{video_id}/` for draft video source pages
 - `/disclosure`
 - `/privacy`
 - `/terms`
@@ -148,6 +149,14 @@ Issue: [#18 Implement /go/{video_id} Function and _routes.json](https://github.c
 The reviewed JSON map is converted into `functions/_data/go-links.generated.mjs` during `npm run build` and `npm test`. The generated file is ignored by git so the reviewed JSON remains the source of truth.
 
 Current v0 entries are audience-building links back to the BriefPicks Pet Tech page. They are not affiliate, retailer, or sponsored redirects. Server-side `go_click` analytics are intentionally disabled until a server-readable opt-out exists.
+
+## `/v/{video_id}` Source Pages
+
+Issue: [#22 Generate first /v pages for approved briefs](https://github.com/PManghan91/faceless-pages/issues/22)
+
+Draft video source pages are generated from `src/_data/videoPages.json` through `src/v-pages.njk`. They show the source-backed claim, source/access date, transcript, disclosure, CTA, and public market tags for each first-week Pet Tech brief.
+
+The current pages are draft review pages. They render with `noindex,nofollow`, are excluded from `sitemap.xml`, and use audience-first CTAs through `/go/{video_id}/`. Do not add `/v/` URLs to the sitemap until the matching brief is approved for publication.
 
 ## Analytics And Privacy
 
