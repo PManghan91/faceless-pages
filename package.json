@@ -4,7 +4,11 @@
   "private": true,
   "scripts": {
     "build": "eleventy",
-    "dev": "eleventy --serve"
+    "build:go-links": "node scripts/generate-go-links-module.mjs",
+    "dev": "eleventy --serve",
+    "prebuild": "npm run build:go-links",
+    "pretest": "npm run build:go-links",
+    "test": "node --test"
   },
   "devDependencies": {
     "@11ty/eleventy": "^3.1.6"

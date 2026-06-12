@@ -1,0 +1,172 @@
+{
+  "pet-tech-catit-pixi-smart-feeder-app-checks": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "facebook_reels",
+    "cta_goal": "save",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "facebook_reels",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-catit-pixi-smart-feeder-app-checks"
+    }
+  },
+  "pet-tech-furbo-360-subscription-check": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "tiktok",
+    "cta_goal": "follow",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "tiktok",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-furbo-360-subscription-check"
+    }
+  },
+  "pet-tech-litter-robot-4-sensor-checks": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "tiktok",
+    "cta_goal": "follow",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "tiktok",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-litter-robot-4-sensor-checks"
+    }
+  },
+  "pet-tech-petcube-treat-camera-fit": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "instagram_reels",
+    "cta_goal": "comment",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "instagram_reels",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-petcube-treat-camera-fit"
+    }
+  },
+  "pet-tech-petkit-puramax-app-alerts": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "youtube_shorts",
+    "cta_goal": "save",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "youtube_shorts",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-petkit-puramax-app-alerts"
+    }
+  },
+  "pet-tech-petlibro-dockstream-app-fountain": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "instagram_reels",
+    "cta_goal": "save",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "instagram_reels",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-petlibro-dockstream-app-fountain"
+    }
+  },
+  "pet-tech-petlibro-feeder-schedule-checks": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "youtube_shorts",
+    "cta_goal": "save",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "youtube_shorts",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-petlibro-feeder-schedule-checks"
+    }
+  },
+  "pet-tech-pitpat-subscription-free-tracker": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "youtube_shorts",
+    "cta_goal": "comment",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "youtube_shorts",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-pitpat-subscription-free-tracker"
+    }
+  },
+  "pet-tech-surefeed-microchip-feeder-hub": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "x_video",
+    "cta_goal": "comment",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "x_video",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-surefeed-microchip-feeder-hub"
+    }
+  },
+  "pet-tech-tractive-dog-gps-escape-alerts": {
+    "enabled": true,
+    "destination_url": "https://briefpicks.com/uk/pet-tech/",
+    "destination_type": "briefpicks_page",
+    "market": "uk",
+    "channel": "pet_tech",
+    "platform": "tiktok",
+    "cta_goal": "follow",
+    "commercial_relationship": "none",
+    "disclosure_required": false,
+    "default_utm": {
+      "source": "tiktok",
+      "medium": "short_video",
+      "campaign": "pet_tech_v0",
+      "content": "pet-tech-tractive-dog-gps-escape-alerts"
+    }
+  }
+}
