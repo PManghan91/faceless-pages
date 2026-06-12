@@ -42,6 +42,8 @@ Cloudflare Pages should build and deploy this repo with:
 
 GitHub Pages, if kept enabled as a mirror, should use GitHub Actions rather than legacy branch-root publishing. The included workflow builds Eleventy and uploads only `_site/`. Legacy branch-root publishing must not be used because it can expose repo-only files.
 
+For production verification after deploys, domain changes, mail DNS changes, or callback changes, use the public-safe runbook in `docs/deployment-verification-runbook.md`.
+
 ## Current Routes
 
 Canonical public routes:
